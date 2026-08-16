@@ -6,6 +6,8 @@
 	overflow: scroll;
 	transform: translate(-616px);
 	transition: transform 0.5s ease;
+	overflow-y: auto;
+	overflow-x: auto;
 }
 
 .container_open {
@@ -23,6 +25,19 @@
 	padding: 50px 31px;
 	background-color: #ffffff;
 	border-right: 1px solid #000000;
+	gap:50px;
+	
+	 
+}
+
+.form::before {
+  content: 'Задайте параметры';
+  display: block;
+  font-size: 18px;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  font-weight: 900;
 }
 
 .bottomContainer {
