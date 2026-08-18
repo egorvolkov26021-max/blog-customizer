@@ -91,5 +91,8 @@
 			"path": "./node_modules/cz-conventional-changelog"
 		}
 	},
-	"homepage": "./"
+	"homepage": "./",
+	"allowScripts": {
+		"esbuild@0.18.20": true
+	}
 }
