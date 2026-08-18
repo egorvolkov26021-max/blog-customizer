@@ -11,7 +11,7 @@ import {
 	backgroundColors,
 	contentWidthArr,
 	defaultArticleState,
-	ArticleStateType
+	ArticleStateType,
 } from 'src/constants/articleProps';
 import styles from './ArticleParamsForm.module.scss';
 
@@ -43,7 +43,7 @@ export const ArticleParamsForm = () => {
 			<ArrowButton isOpen={isOpen} onClick={switchOpen} />
 			<aside
 				className={clsx(styles.container, { [styles.container_open]: isOpen })}>
-				<form className={styles.form} onSubmit={handleSubmit} >
+				<form className={styles.form} onSubmit={handleSubmit}>
 					<Select
 						title='Шрифт'
 						selected={formState.fontFamilyOption}
