@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import { Button } from 'src/ui/button';
 import { Select } from 'src/ui/select';
 import { RadioGroup } from 'src/ui/radio-group';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import {
 	fontFamilyOptions,
 	fontSizeOptions,
@@ -15,33 +15,52 @@ import {
 } from 'src/constants/articleProps';
 import styles from './ArticleParamsForm.module.scss';
 
-export const ArticleParamsForm = () => {
+type ArticleParamsFormProps = {
+	onApply: (params: ArticleStateType) => void;
+	onReset: () => void;
+};
+
+export const ArticleParamsForm = ({
+	onApply,
+	onReset,
+}: ArticleParamsFormProps) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const switchOpen = () => setIsOpen((isOpen) => !isOpen);
-	const [formState, setFormState] = useState(defaultArticleState);
-	const applyStyle = (params: ArticleStateType) => {
-		const main = document.querySelector('main');
-		if (main) {
-			main.style.setProperty('--font-family', params.fontFamilyOption.value);
-			main.style.setProperty('--font-size', params.fontSizeOption.value);
-			main.style.setProperty('--font-color', params.fontColor.value);
-			main.style.setProperty('--container-width', params.contentWidth.value);
-			main.style.setProperty('--bg-color', params.backgroundColor.value);
-		}
-	};
+	const [formState, setFormState] =
+		useState<ArticleStateType>(defaultArticleState);
+
+	const sidebarRef = useRef<HTMLElement>(null);
+
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
-		applyStyle(formState);
+		onApply(formState);
 	};
 
 	const handleReset = () => {
 		setFormState(defaultArticleState);
-		applyStyle(defaultArticleState);
+		onReset();
 	};
+
+	useEffect(() => {
+		if (!isOpen) return;
+
+		const handleClickOutside = (event: MouseEvent) => {
+			if (!sidebarRef.current?.contains(event.target as Node)) {
+				setIsOpen(false);
+			}
+		};
+
+		document.addEventListener('mousedown', handleClickOutside);
+		return () => document.removeEventListener('mousedown', handleClickOutside);
+	}, [isOpen]);
+
 	return (
 		<>
-			<ArrowButton isOpen={isOpen} onClick={switchOpen} />
+			<div onClick={(e) => e.stopPropagation()}>
+				<ArrowButton isOpen={isOpen} onClick={switchOpen} />
+			</div>
 			<aside
+				ref={sidebarRef}
 				className={clsx(styles.container, { [styles.container_open]: isOpen })}>
 				<form className={styles.form} onSubmit={handleSubmit}>
 					<Select
