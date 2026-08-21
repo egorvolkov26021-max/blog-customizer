@@ -4,6 +4,7 @@
 	width: 616px;
 	height: 100%;
 	overflow: scroll;
+	overflow: auto auto;
 	transform: translate(-616px);
 	transition: transform 0.5s ease;
 }
@@ -16,13 +17,24 @@
 	display: flex;
 	flex-shrink: 0;
 	flex-direction: column;
+	gap: 48px;
 	box-sizing: border-box;
 	width: 616px;
 	height: auto;
 	min-height: 100%;
-	padding: 50px 31px;
+	padding: 50px 32px;
 	background-color: #ffffff;
 	border-right: 1px solid #000000;
+}
+
+.form::before {
+	display: block;
+	padding-bottom: 10px;
+	font-weight: 800;
+	font-size: 31px;
+	font-family: 'Open Sans', sans-serif;
+	text-transform: uppercase;
+	content: 'Задайте параметры';
 }
 
 .bottomContainer {
