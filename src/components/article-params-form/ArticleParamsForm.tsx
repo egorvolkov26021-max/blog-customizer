@@ -14,6 +14,7 @@ import {
 	ArticleStateType,
 } from 'src/constants/articleProps';
 import styles from './ArticleParamsForm.module.scss';
+import { Separator } from 'src/ui/separator';
 
 type ArticleParamsFormProps = {
 	onApply: (params: ArticleStateType) => void;
@@ -89,6 +90,8 @@ export const ArticleParamsForm = ({
 							setFormState({ ...formState, fontColor: option })
 						}
 					/>
+
+					<Separator />
 
 					<Select
 						title='Цвет фона'
